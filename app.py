@@ -84,26 +84,21 @@ input_data = pd.DataFrame(
 
 if st.button("Predict Credit Risk"):
 
-    prediction = model.predict(
-        input_data
-    )[0]
+    try:
+        prediction = model.predict(input_data)[0]
+        probability = model.predict_proba(input_data)[0][1]
 
-    probability = model.predict_proba(
-        input_data
-    )[0][1]
+        st.subheader("Prediction Result")
 
-    st.subheader("Prediction Result")
+        if prediction == 0:
+            st.success("Approved Customer")
+        else:
+            st.error("High Risk Customer")
 
-    if prediction == 0:
-        st.success(
-            "Approved Customer"
-        )
-    else:
-        st.error(
-            "High Risk Customer"
+        st.metric(
+            "Risk Probability",
+            f"{probability:.2%}"
         )
 
-    st.metric(
-        "Risk Probability",
-        f"{probability:.2%}"
-    )
+    except Exception as e:
+        st.error(f"Prediction Error: {e}")
