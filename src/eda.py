@@ -27,14 +27,28 @@ def perform_eda(df, target_col, output_dir="reports"):
     numeric_df = df.select_dtypes(include=['int64','float64'])
 
     if len(numeric_df.columns) > 1:
-        plt.figure(figsize=(10,8))
-        sns.heatmap(
-            numeric_df.corr(),
-            annot=False,
-            cmap="coolwarm"
-        )
-        plt.title("Correlation Matrix")
-        plt.savefig(f"{output_dir}/correlation_matrix.png")
-        plt.close()
+        plt.figure(figsize=(12, 10))
 
-    print("\nEDA Completed")
+        sns.heatmap(
+    correlation_matrix,
+    annot=True,
+    cmap="coolwarm",
+    fmt=".2f",
+    linewidths=0.5
+)
+
+plt.title("Correlation Matrix", fontsize=16)
+plt.xticks(rotation=45, ha="right")
+plt.yticks(rotation=0)
+
+plt.tight_layout()
+
+plt.savefig(
+    "reports/correlation_matrix.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.close()
+
+print("\nEDA Completed")

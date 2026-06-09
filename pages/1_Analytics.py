@@ -10,5 +10,6 @@ st.image(
 
 st.image(
     "reports/correlation_matrix.png",
-    caption="Correlation Matrix"
+    caption="Correlation Matrix",
+    use_container_width=True
 )
